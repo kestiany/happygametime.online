@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappyGameTime</title>
+    <script>
+      function getPreferredLanguage() {
+        const userLang = navigator.language || navigator.userLanguage;
+        return userLang.startsWith('zh') ? 'zh' : 'en';
+      }
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        const lang = getPreferredLanguage();
+        document.documentElement.lang = lang;
+        
+        // 更新页面文本内容
+        if (lang === 'zh') {
+          document.querySelector('h2').textContent = '游戏玩法';
+        } else {
+          document.querySelector('h2').textContent = 'How To Play';
+        }
+      });
+      
+      // 手动切换语言
+      document.addEventListener('DOMContentLoaded', function() {
+        const langToggle = document.getElementById('langToggle');
+        if (langToggle) {
+          langToggle.addEventListener('click', function() {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.documentElement.lang = newLang;
+            
+            if (newLang === 'zh') {
+              document.querySelector('h2').textContent = '游戏玩法';
+            } else {
+              document.querySelector('h2').textContent = 'How To Play';
+            }
+          });
+        }
+      });
+    </script>
+    <script>
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameName = getUrlParam('name');
+            const iframeUrl = getUrlParam('iframe');
+            const description = getUrlParam('description');
+
+            if (gameName) document.querySelector('h1').textContent = gameName;
+            if (iframeUrl) document.querySelector('iframe').src = iframeUrl;
+            if (description) document.querySelector('p').textContent = description;
+        });
+      
+      // 手动切换语言
+      document.addEventListener('DOMContentLoaded', function() {
+        const langToggle = document.getElementById('langToggle');
+        if (langToggle) {
+          langToggle.addEventListener('click', function() {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.documentElement.lang = newLang;
+            
+            if (newLang === 'zh') {
+              document.querySelector('h2').textContent = '游戏玩法';
+            } else {
+              document.querySelector('h2').textContent = 'How To Play';
+            }
+          });
+        }
+      });
+    </script>
+    <style>
+        .h-screen-80 {
+            height: 80vh;
+        }
+        @media (max-width: 768px) {
+            .h-screen-80 {
+                height: 60vh;
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="mb-10">
+            <div class="flex justify-end mb-4">
+                <button id="langToggle" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full">
+                    EN/中文
+                </button>
+            </div>
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">HappyGameTime</h1>
+        </header>
+
+        <div class="w-full h-screen-80 mb-8 rounded-lg overflow-hidden shadow-xl">
+            <iframe class="w-full h-full min-h-[400px]" src="" frameborder="0" allow="fullscreen" allowfullscreen></iframe>
+        </div>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">How To Play</h2>
+            <div class="prose max-w-none">
+                <p class="text-gray-700 mb-6"></p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
