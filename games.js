@@ -1,6 +1,6 @@
 // 加载游戏数据并生成游戏卡片
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('games.json')
+    fetch('./games.json')
         .then(response => response.json())
         .then(games => {
             const container = document.getElementById('games-container');
