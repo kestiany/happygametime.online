@@ -26,25 +26,7 @@
         }
       });
       
-      // 手动切换语言
-      document.addEventListener('DOMContentLoaded', function() {
-        const langToggle = document.getElementById('langToggle');
-        if (langToggle) {
-          langToggle.addEventListener('click', function() {
-            const currentLang = document.documentElement.lang;
-            const newLang = currentLang === 'zh' ? 'en' : 'zh';
-            document.documentElement.lang = newLang;
-            
-            if (newLang === 'zh') {
-              document.querySelector('h1').textContent = 'HappyGameTime';
-              document.querySelector('p').textContent = '体验最棒的游戏时光';
-            } else {
-              document.querySelector('h1').textContent = 'HappyGameTime';
-              document.querySelector('p').textContent = 'Your best gaming experience';
-            }
-          });
-        }
-      });
+      
     </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="canonical" href="https://www.HappyGameTime.online">
@@ -68,24 +50,22 @@
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <header class="mb-10">
             <div class="flex justify-end mb-4">
-                <button id="langToggle" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full">
-                    EN/中文
-                </button>
+                
             </div>
             <h1 class="text-5xl font-bold text-gray-900 mb-4">HappyGameTime</h1>
             <p class="text-xl text-gray-700">体验最棒的游戏时光</p>
         </header>
         
         <div class="flex">
-            <div class="w-24 hover:w-72 fixed left-0 top-0 h-full pt-20 transition-all duration-300 ease-in-out bg-gray-100 overflow-hidden z-10">
+            <div class="w-32 hover:w-80 fixed left-0 top-0 h-full pt-20 transition-all duration-300 ease-in-out bg-gray-100 overflow-hidden z-10">
                 <div class="p-4">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4 whitespace-nowrap">游戏分类</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 whitespace-nowrap">Categories</h3>
                     <ul id="category-list" class="space-y-2">
-                        <li><button class="category-btn text-blue-600 hover:text-blue-800 whitespace-nowrap" data-category="all">全部游戏</button></li>
+                        <li><button class="category-btn text-blue-600 hover:text-blue-800 whitespace-nowrap" data-category="all">All Games</button></li>
                     </ul>
                 </div>
             </div>
-            <div class="flex-1 ml-24 hover:ml-72 transition-all duration-300 ease-in-out">
+            <div class="flex-1 ml-32 hover:ml-80 transition-all duration-300 ease-in-out">
 
         <div id="games-container" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 ml-4">
             <!-- 游戏卡片将通过JavaScript动态生成 -->

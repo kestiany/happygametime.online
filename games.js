@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Play按钮
                 const playBtn = document.createElement('a');
-                playBtn.href = `game_template.html?name=${encodeURIComponent(game.name)}&iframe=${encodeURIComponent(game.iframe)}&description=${encodeURIComponent(game.description)}`;
+                playBtn.href = `game_template.html?name=${encodeURIComponent(game.name)}`;
                 playBtn.target = '_blank';
                 playBtn.className = 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100';
                 playBtn.textContent = 'Play';

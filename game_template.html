@@ -5,74 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HappyGameTime</title>
     <script>
-      function getPreferredLanguage() {
-        const userLang = navigator.language || navigator.userLanguage;
-        return userLang.startsWith('zh') ? 'zh' : 'en';
-      }
+      
       
       document.addEventListener('DOMContentLoaded', function() {
         const lang = getPreferredLanguage();
         document.documentElement.lang = lang;
         
         // 更新页面文本内容
-        if (lang === 'zh') {
-          document.querySelector('h2').textContent = '游戏玩法';
-        } else {
-          document.querySelector('h2').textContent = 'How To Play';
-        }
+        document.querySelector('h2').textContent = 'How To Play';
       });
       
-      // 手动切换语言
-      document.addEventListener('DOMContentLoaded', function() {
-        const langToggle = document.getElementById('langToggle');
-        if (langToggle) {
-          langToggle.addEventListener('click', function() {
-            const currentLang = document.documentElement.lang;
-            const newLang = currentLang === 'zh' ? 'en' : 'zh';
-            document.documentElement.lang = newLang;
-            
-            if (newLang === 'zh') {
-              document.querySelector('h2').textContent = '游戏玩法';
-            } else {
-              document.querySelector('h2').textContent = 'How To Play';
-            }
-          });
-        }
-      });
+      
     </script>
     <script>
-        function getUrlParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
+        async function loadGameData(gameName) {
+            try {
+                const response = await fetch('./games.json');
+                const games = await response.json();
+                const game = games.find(g => g.name === gameName);
+                
+                if (game) {
+                    document.querySelector('h1').textContent = game.name;
+                    document.querySelector('iframe').src = game.iframe;
+                    document.querySelector('p').textContent = game.description;
+                    document.title = `${game.name} - HappyGameTime`;
+                }
+            } catch (error) {
+                console.error('Error loading game data:', error);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const gameName = getUrlParam('name');
-            const iframeUrl = getUrlParam('iframe');
-            const description = getUrlParam('description');
-
-            if (gameName) document.querySelector('h1').textContent = gameName;
-            if (iframeUrl) document.querySelector('iframe').src = iframeUrl;
-            if (description) document.querySelector('p').textContent = description;
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameName = urlParams.get('name');
+            
+            if (gameName) {
+                loadGameData(gameName);
+            }
         });
       
-      // 手动切换语言
-      document.addEventListener('DOMContentLoaded', function() {
-        const langToggle = document.getElementById('langToggle');
-        if (langToggle) {
-          langToggle.addEventListener('click', function() {
-            const currentLang = document.documentElement.lang;
-            const newLang = currentLang === 'zh' ? 'en' : 'zh';
-            document.documentElement.lang = newLang;
-            
-            if (newLang === 'zh') {
-              document.querySelector('h2').textContent = '游戏玩法';
-            } else {
-              document.querySelector('h2').textContent = 'How To Play';
-            }
-          });
-        }
-      });
+      
     </script>
     <style>
         .h-screen-80 {
@@ -90,9 +62,7 @@
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <header class="mb-10">
             <div class="flex justify-end mb-4">
-                <button id="langToggle" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full">
-                    EN/中文
-                </button>
+                
             </div>
             <h1 class="text-5xl font-bold text-gray-900 mb-4">HappyGameTime</h1>
         </header>
