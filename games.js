@@ -4,8 +4,34 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(games => {
             const container = document.getElementById('games-container');
-
-            games.forEach(game => {
+            const categoryList = document.getElementById('category-list');
+            
+            // 获取去重后的分类列表
+            const categories = [...new Set(games.map(game => game.category))];
+            
+            // 生成分类导航
+            categories.forEach(category => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.className = 'category-btn text-blue-600 hover:text-blue-800';
+                btn.textContent = category;
+                btn.dataset.category = category;
+                btn.addEventListener('click', () => filterGamesByCategory(category));
+                li.appendChild(btn);
+                categoryList.appendChild(li);
+            });
+            
+            // 全部游戏按钮事件
+            document.querySelector('[data-category="all"]').addEventListener('click', () => {
+                renderGames(games);
+            });
+            
+            // 初始渲染所有游戏
+            renderGames(games);
+            
+            function renderGames(gamesToRender) {
+                container.innerHTML = '';
+                gamesToRender.forEach(game => {
                 // 创建游戏卡片
                 const card = document.createElement('div');
                 card.className = 'game-card bg-white rounded-lg shadow-md p-4 flex flex-col items-center transition-all duration-300 hover:shadow-lg relative group';
@@ -48,6 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 将卡片添加到容器
                 container.appendChild(card);
             });
-        })
-        .catch(error => console.error('Error loading games data:', error));
-    });
+        }
+        
+        function filterGamesByCategory(category) {
+            fetch('./games.json')
+                .then(response => response.json())
+                .then(games => {
+                    const filteredGames = games.filter(game => game.category === category);
+                    renderGames(filteredGames);
+                });
+        }
+    })
+    .catch(error => console.error('Error loading games data:', error));
+});
