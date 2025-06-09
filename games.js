@@ -3,6 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('./games.json')
         .then(response => response.json())
         .then(games => {
+            // 添加搜索功能
+            const searchInput = document.getElementById('game-search');
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredGames = games.filter(game => 
+                    game.name.toLowerCase().includes(searchTerm)
+                );
+                renderGames(filteredGames);
+            });
             const container = document.getElementById('games-container');
             const categoryList = document.getElementById('category-list');
             
