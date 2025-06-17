@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HappyGameTime</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4K4NJ89PR2"></script>
     <script>
-      
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4K4NJ89PR2');
+    </script>
+    <script>
+      function getPreferredLanguage() {
+        const userLang = navigator.language || navigator.userLanguage;
+        return userLang.startsWith('zh') ? 'zh' : 'en';
+      }
       
       document.addEventListener('DOMContentLoaded', function() {
         const lang = getPreferredLanguage();
@@ -26,9 +38,28 @@
                 
                 if (game) {
                     document.querySelector('h1').textContent = game.name;
+                    console.log('Setting iframe src to:', game.iframe);
                     document.querySelector('iframe').src = game.iframe;
-                    document.querySelector('p').textContent = game.description;
+                    
+                    // 检查iframe是否正确加载
+                    const iframe = document.querySelector('iframe');
+                    iframe.onload = function() {
+                        console.log('Iframe loaded successfully');
+                    };
+                    iframe.onerror = function() {
+                        console.error('Iframe failed to load');
+                    };
+                    
+                    // 处理HTML格式的描述
+                    if (game.description && game.description.startsWith('<div')) {
+                        document.querySelector('p').innerHTML = game.description;
+                    } else {
+                        document.querySelector('p').textContent = game.description || '';
+                    }
+                    
                     document.title = `${game.name} - HappyGameTime`;
+                } else {
+                    console.error('Game not found:', gameName);
                 }
             } catch (error) {
                 console.error('Error loading game data:', error);
