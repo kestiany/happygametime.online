@@ -73,6 +73,39 @@
             if (gameName) {
                 loadGameData(gameName);
             }
+
+            // Fullscreen functionality
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const gameContainer = document.querySelector('.game-container');
+            const gameFrame = document.querySelector('iframe');
+
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    if (gameFrame.requestFullscreen) {
+                        gameFrame.requestFullscreen();
+                    } else if (gameFrame.webkitRequestFullscreen) {
+                        gameFrame.webkitRequestFullscreen();
+                    } else if (gameFrame.msRequestFullscreen) {
+                        gameFrame.msRequestFullscreen();
+                    }
+                    fullscreenBtn.textContent = 'Exit Fullscreen';
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                    fullscreenBtn.textContent = 'Fullscreen';
+                }
+            });
+
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    fullscreenBtn.textContent = 'Fullscreen';
+                }
+            });
         });
       
       
@@ -84,6 +117,31 @@
         @media (max-width: 768px) {
             .h-screen-80 {
                 height: 60vh;
+            }
+        }
+        .game-container {
+            position: relative;
+        }
+        #fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #fullscreen-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        @media (max-width: 768px) {
+            #fullscreen-btn {
+                padding: 6px 12px;
+                font-size: 14px;
             }
         }
     </style>
@@ -98,7 +156,8 @@
             <h1 class="text-5xl font-bold text-gray-900 mb-4">HappyGameTime</h1>
         </header>
 
-        <div class="w-full h-screen-80 mb-8 rounded-lg overflow-hidden shadow-xl">
+        <div class="game-container w-full h-screen-80 mb-8 rounded-lg overflow-hidden shadow-xl relative">
+            <button id="fullscreen-btn" class="fullscreen-btn">Fullscreen</button>
             <iframe class="w-full h-full min-h-[400px]" src="" frameborder="0" allow="fullscreen" allowfullscreen></iframe>
         </div>
 

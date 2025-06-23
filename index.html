@@ -53,14 +53,41 @@
             border-radius: 50%;
             object-fit: cover;
         }
+        .search-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .recommend-btn {
+            background-color: #4F46E5;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .recommend-btn:hover {
+            background-color: #4338CA;
+            transform: translateY(-1px);
+        }
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .recommend-btn {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <header class="mb-10">
             <div class="flex justify-end mb-4">
-                <div class="relative">
+                <div class="search-container">
                     <input type="text" id="game-search" placeholder="Search games..." class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <a href="https://mysterygames.org/" target="_blank" class="recommend-btn">Recommendation</a>
                 </div>
             </div>
             <h1 class="text-5xl font-bold text-gray-900 mb-4">HappyGameTime</h1>
